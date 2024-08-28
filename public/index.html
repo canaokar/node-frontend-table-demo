@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bootstrap Table Example</title>
-  <!-- Bootstrap CSS -->
+  <!-- Metadata for the HTML document -->
+  <meta charset="UTF-8"> <!-- Specifies the character encoding for the document -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensures the page is responsive on all devices -->
+  <title>Bootstrap Table Example</title> <!-- Title of the page -->
+
+  <!-- Link to the Bootstrap CSS file from a CDN (Content Delivery Network) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
   <div class="container mt-5">
+    <!-- Page heading displayed as a centered h2 element -->
     <h2 class="text-center">User Data</h2>
+
+    <!-- Button that will trigger loading of data from the server -->
     <button id="loadData" class="btn btn-primary mb-3">Load Data</button>
+
+    <!-- Table to display user data; Bootstrap classes are used for styling -->
     <table class="table table-bordered">
       <thead>
         <tr>
+          <!-- Table headers for the ID, Name, Email, and Age columns -->
           <th>ID</th>
           <th>Name</th>
           <th>Email</th>
@@ -21,22 +29,26 @@
         </tr>
       </thead>
       <tbody id="tableBody">
-        <!-- Data will be populated here -->
+        <!-- The table body where data rows will be dynamically inserted -->
       </tbody>
     </table>
   </div>
 
-  <!-- Bootstrap JS and dependencies -->
+  <!-- Include Bootstrap JavaScript and its dependencies from a CDN -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Custom JS -->
+
+  <!-- Custom JavaScript to handle data loading and table population -->
   <script>
+    // Add an event listener to the "Load Data" button
     document.getElementById('loadData').addEventListener('click', function() {
+      // Fetch data from the server using the Fetch API
       fetch('/data')
-        .then(response => response.json())
+        .then(response => response.json()) // Parse the JSON response from the server
         .then(data => {
           const tableBody = document.getElementById('tableBody');
-          tableBody.innerHTML = ''; // Clear any existing data
+          tableBody.innerHTML = ''; // Clear any existing rows in the table
 
+          // Loop through the data array and create a table row for each item
           data.forEach(item => {
             const row = `<tr>
                           <td>${item.id}</td>
@@ -44,6 +56,7 @@
                           <td>${item.email}</td>
                           <td>${item.age}</td>
                         </tr>`;
+            // Insert the row into the table body
             tableBody.insertAdjacentHTML('beforeend', row);
           });
         });
